@@ -4,12 +4,12 @@
 }
 
 body {
-    background-color: #1b1b1b;
-    color: #eaeaea;
+    background-color: #A5DBF2;
+    color: #000000;
     font-family: Verdana, sans-serif;
     font-size: 100%;
     line-height: 24px;
-    background-image: radial-gradient(50% 100%, #60B5FF 0%, #072945 100%);
+    backgrhound-image: radial-gradient(50% 100%, #60B5FF 0%, #072945 100%);
 }
 
 h1 {
