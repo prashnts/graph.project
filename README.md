@@ -1,4 +1,4 @@
 graph.project
 =============
 
-Project Repository for fulfilment of course II.2 Discreet Mathematics.
+Project Repository for fulfillment of course II.2 Discrete Mathematics.
