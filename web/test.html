@@ -17,25 +17,16 @@
     <link href='style.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <div id="panel">
-        <div id="settings">
-            <form>
-                <fieldset id="firstColumn">
-                    <span>Size of map (px): </span><input type="text" id="mapWidth" value="1200"/> x <input type="text" id="mapHeight" value="450"/><br />
-                    <span>Size of a hexagon (px): </span><input type="text" id="hexagonSize" value="40"/><br />
-                    <span>Number of countries: </span><input type="text" id="numberOfCountries" value="5"/>
-                </fieldset>
-                <fieldset id="secondColumn">
-                    <span>Country size variance (0 - 0.9): </span><input type="text" id="countrySizeVariance" value="0.5"/><br />
-                    <span>Distortion: </span><input type="checkbox" id="useDistortion">
-                </fieldset>
-                <fieldset id="thirdColumn">
-                    <span>Compact country shapes:</span><input type="checkbox" id="useCompactShapes"><br />
-                    <span>Show centers and connections:</span><input type="checkbox" id="showCentersAndConnection" checked><br />
-                    <input type="button" id="generate" value="Generate New Map">
-                </fieldset>
-            </form>
-        </div>
+    <div id="settings">
+        <form>
+                <span>Size of a hexagon (px): </span><input type="text" id="hexagonSize" value="40"/><br />
+                <span>Number of countries: </span><input type="text" id="numberOfCountries" value="10"/>
+                <span>Country size variance (0 - 0.9): </span><input type="text" id="countrySizeVariance" value="0.5"/><br />
+                <span>Distortion: </span><input type="checkbox" id="useDistortion"><br />
+                <span>Compact country shapes:</span><input type="checkbox" id="useCompactShapes"><br />
+                <span>Show centers and connections:</span><input type="checkbox" id="showCentersAndConnection" checked><br />
+                <input type="button" id="generate" value="Generate New Map">
+        </form>
     </div>
     <div id="paper">
     </div>
@@ -45,8 +36,8 @@
         var map;
 
         function generate() {
-            var width = parseInt(document.getElementById('mapWidth').value);
-            var height = parseInt(document.getElementById('mapHeight').value);
+            var width = document.documentElement.clientWidth;
+            var height = document.documentElement.clientHeight;
             var hexagonSize = parseInt(document.getElementById('hexagonSize').value);
             var numberOfCountries = parseInt(document.getElementById('numberOfCountries').value);
             var countrySizeVariance = parseFloat(document.getElementById('countrySizeVariance').value);
@@ -77,13 +68,13 @@
                 map = generator.getMap();
                 
                 for (var i = 0; i < map.regions.length; i++) {          
-                    paper.path(map.regions[i].pathString).attr("fill", '#D6E9CB'); //Raphael.getColor(0.4));
+                    paper.path(map.regions[i].pathString).attr("fill", /*'#C0E8AD'); /*/Raphael.getColor(0.6));
                     
                     var x = map.regions[i].center.x,
                         y = map.regions[i].center.y;
 
                     if (showCentersAndConnection) {
-                        paper.circle(x, y, 5).attr("fill", '#eeea10');
+                        paper.circle(x, y, 10).attr("fill", '#F9F5ED');
                         paper.text(x, y, i);
                     }
                 }
@@ -101,7 +92,7 @@
                                     ',' + y1 + 
                                     ' L ' + x2 + 
                                     ',' + y2 + ' Z'
-                                ).attr({'stroke': '#ffffff', 'stroke-width': 2, 'opacity': 0.3});
+                                ).attr({'stroke': '#ffffff', 'stroke-width': 5, 'opacity': 0.4});
 
                                 paper.text((x1+x2)/2, (y1+y2)/2, map.adjacencyMatrix[i][j].toFixed(2));
 
@@ -116,7 +107,7 @@
         }
         
         var button = document.getElementById('generate');
-        var paper = Raphael("paper", 10, 10);
+        var paper = Raphael("paper");
     
         button.onclick = generate;
         generate();
