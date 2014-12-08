@@ -21,6 +21,7 @@ def dijkstra(graph,src,dest,visited=[],distances={},predecessors={}):
             distances[src]=0
         # visit the neighbors
         for neighbor in graph[src] :
+            #print graph[src]
             if neighbor not in visited:
                 new_distance = distances[src] + graph[src][neighbor]
                 if new_distance < distances.get(neighbor,float('inf')):
@@ -36,6 +37,7 @@ def dijkstra(graph,src,dest,visited=[],distances={},predecessors={}):
             if k not in visited:
                 unvisited[k] = distances.get(k,float('inf'))        
         x=min(unvisited, key=unvisited.get)
+        print predecessors
         dijkstra(graph,x,dest,visited,distances,predecessors)
         
 
