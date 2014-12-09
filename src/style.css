@@ -3,6 +3,12 @@
     padding: 0;
 }
 
+html, body {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
 body {
     background-color: #A5DBF2;
     color: #000000;
@@ -11,33 +17,72 @@ body {
     line-height: 24px;
 }
 
-h1 {
-    font-size: 130%;
-    color: #4e6f77;
+.header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 90;
+    width: 200px;
+    background: #001731;
+    color: #FFF;
+    height: 100%;
+    padding: 0px 10px 0 10px;
 }
 
-a {
-    color: #4e6f77;
+.header img {
+    height: 60px;
+    float: right;
+    margin-right: 55px;
+    margin-bottom: 10px;
+}
+
+.header h2 {
+    font-weight: 100;
+    margin-top: 60px;
+    text-align: center;
+}
+
+.header #history {
+    height: 100px;
+    overflow: auto;
+}
+
+.header .footer {
+    position: absolute;
+    bottom: 0;
+}
+
+.header .footer p {
+    margin: 0px 0;
+
+}
+
+.header .footer a {
+    color: #FFFFFF;
+    opacity: 0.5;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.header .footer a img {
+    height: 30px;
+    opacity: 0.4;
 }
 
 #settings {
-    width: 300px;
-    position: absolute;
-    z-index: 10000;
-    background: #000;
-    color: #FFFFFF;
+    width: 200px;
+    z-index: 80;
     right: 0;
     padding: 10px;
-    opacity: 0.3;
-    transition: opacity 0.2s;
+    float: right;
+    top: 120px;
+    position: absolute;
+    font-size: 12px;
 }
 
-#settings:hover {
-    opacity: 1;
-}
 
-input[type=text] {
-    width: 40px;
+#settings span {
+    float: right;
 }
 
 #paper {

@@ -6,8 +6,25 @@
     <link href='/src/style.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <div id="settings">
-        <p>Dijkstra Map generator.</p>
+    <div class="header">
+        <a href="/"><img src="vendor/dijkstra.png"></a>
+        <h2>Dijkstra.</h2>
+        <div id="settings">
+            <p>Source City: <span id="src">Choose In Map</span></p>
+            <p>Destination City: <span id="dest">Choose In Map</span></p>
+            <p>Distance: <span id="dist">Waiting for Input</span></p>
+            <div id="history">
+                <p>History (Scrollable):</p>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Draw:</p>
+            <p><a href="/?countries=20">20 Cities</a>
+               <a href="/?countries=50">50 Cities</a>
+               <a href="/?countries=100">100 Cities</a><br>
+               <a href="/?countries=200">200 Cities</a></p>
+            <p><a href="#"><img src="http://www.hack.institute/events/connected-car/img/github-logo-white.png"></a></p>
+        </div>
     </div>
     <div id="paper">
     </div>

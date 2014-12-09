@@ -4,7 +4,7 @@ var map,
     maps = [],
     origin,
     end,
-    width = document.documentElement.clientWidth - 200,
+    width = document.documentElement.clientWidth - 250,
     height = document.documentElement.clientHeight - 40;
 
 function getParameterByName(name) {
@@ -61,10 +61,18 @@ function generate () {
 
                 this.setAttribute("class", this.getAttribute("class") + " effect-persisting");
 
-                if (!origin) origin = Num;
+                if (!origin) {
+                    origin = Num;
+                    document.getElementById("src").innerHTML = Num;
+                    document.getElementById("dest").innerHTML = "Choose In Map";
+                    document.getElementById("dist").innerHTML = "Waiting for Input";
+                }
                 else {
                     end = Num;
+                    document.getElementById("dest").innerHTML = Num;
+                    document.getElementById("dist").innerHTML = "Processing";
                     findRoute(origin, end);
+                    document.getElementById("history").innerHTML += '('+origin+', '+end+'): <span>'+ document.getElementById("dist").innerHTML + '</span><br>';
                     origin = undefined;
                     end = undefined;
                 }
@@ -187,6 +195,8 @@ function findRoute(source, destination) {
     "use strict";
     var _graph = translateGraphFromAdjacency(map.adjacencyMatrix),
         path = dijkstra(_graph, source, destination);
+
+    document.getElementById("dist").innerHTML = path.distance.toFixed(2) + " px";
 
     traceRoute(path.path);
     return path
