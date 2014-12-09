@@ -16,7 +16,6 @@ CLOSURE_FLAGS=\
 		--summary_detail_level 3\
 		--language_in=ECMASCRIPT5
 
-
 CORE_FILES=point.js line.js hexagon.js country.js map.js mapgenerator.js generic.js
 VENDOR_FILES=../vendor/raphael.js
 
@@ -35,6 +34,3 @@ build/graph.js: src/*.js
 
 clean:
 	rm -f build/*
-
-run:
-	python2 -m SimpleHTTPServer 2> /dev/null 

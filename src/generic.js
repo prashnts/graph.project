@@ -7,6 +7,14 @@ var map,
     width = document.documentElement.clientWidth - 200,
     height = document.documentElement.clientHeight - 40;
 
+function getParameterByName(name) {
+    "use strict";
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? 26 : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 function generate () {
     "use strict";
 
@@ -24,7 +32,7 @@ function generate () {
         );
         
         generator.generate(
-            parseInt(document.getElementById('numberOfCountries').value),
+            parseInt(getParameterByName('countries')),
             0.6,
             false
         );
@@ -33,6 +41,7 @@ function generate () {
         
         for (var i = 0; i < map.regions.length; i++) {          
             maps.push(paper.path(map.regions[i].pathString).attr("fill", /*'#C0E8AD'); /*/Raphael.getColor(0)));
+            /*
             maps[i].node.onmouseover = function() {
                 this.setAttribute("oldfill", this.getAttribute("fill"));
                 var fill = this.getAttribute("fill");
@@ -42,14 +51,15 @@ function generate () {
             maps[i].node.onmouseout = function() {
                 this.setAttribute("fill", this.getAttribute("oldfill"));
             };
+            */
 
             maps[i].node.setAttribute("data-id", i);
+            maps[i].node.setAttribute("class", maps[i].node.getAttribute("class") + " effect");
 
             maps[i].node.onclick = function() {
                 var Num = String.fromCharCode(Number(this.getAttribute("data-id")) + 65);
 
-                this.setAttribute("fill", "#165196");// Raphael.hsl(h,s,l));
-                this.setAttribute("oldfill", "#165196");// Raphael.hsl(h,s,l));
+                this.setAttribute("class", this.getAttribute("class") + " effect-persisting");
 
                 if (!origin) origin = Num;
                 else {
@@ -208,5 +218,4 @@ function traceRoute(path) {
     }
 }
 
-button.onclick = generate;
 generate();
