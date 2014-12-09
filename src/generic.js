@@ -1,11 +1,14 @@
 var map,
     paper = Raphael("paper"),
-    button = document.getElementById('generate');
+    button = document.getElementById('generate'),
+    maps = [],
+    origin,
+    end,
+    width = document.documentElement.clientWidth - 200,
+    height = document.documentElement.clientHeight - 40;
 
 function generate () {
     "use strict";
-    var width = document.documentElement.clientWidth - 200;
-    var height = document.documentElement.clientHeight;
 
     paper.clear();
     paper.setSize(width, height);
@@ -29,7 +32,33 @@ function generate () {
         map = generator.getMap();
         
         for (var i = 0; i < map.regions.length; i++) {          
-            paper.path(map.regions[i].pathString).attr("fill", /*'#C0E8AD'); /*/Raphael.getColor(0));
+            maps.push(paper.path(map.regions[i].pathString).attr("fill", /*'#C0E8AD'); /*/Raphael.getColor(0)));
+            maps[i].node.onmouseover = function() {
+                this.setAttribute("oldfill", this.getAttribute("fill"));
+                var fill = this.getAttribute("fill");
+
+                this.setAttribute("fill", "#165196");
+            };
+            maps[i].node.onmouseout = function() {
+                this.setAttribute("fill", this.getAttribute("oldfill"));
+            };
+
+            maps[i].node.setAttribute("data-id", i);
+
+            maps[i].node.onclick = function() {
+                var Num = String.fromCharCode(Number(this.getAttribute("data-id")) + 65);
+
+                this.setAttribute("fill", "#165196");// Raphael.hsl(h,s,l));
+                this.setAttribute("oldfill", "#165196");// Raphael.hsl(h,s,l));
+
+                if (!origin) origin = Num;
+                else {
+                    end = Num;
+                    findRoute(origin, end);
+                    origin = undefined;
+                    end = undefined;
+                }
+            };
         }
         
         for (var i = 0; i < map.adjacencyMatrix.length; i++) {
@@ -47,7 +76,6 @@ function generate () {
                     ).attr({'stroke': '#ffffff', 'stroke-width': 5, 'opacity': 0.4});
 
                     paper.text((x1+x2)/2, (y1+y2)/2, map.adjacencyMatrix[i][j].toFixed(2));
-
                 }
 
             }
